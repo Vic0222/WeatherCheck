@@ -36,7 +36,7 @@ namespace WeatherCheck.WeatherStackClient.Models
         public long Pressure { get; set; }
 
         [JsonPropertyName("precip")]
-        public long Precip { get; set; }
+        public decimal Precip { get; set; }
 
         [JsonPropertyName("humidity")]
         public long Humidity { get; set; }

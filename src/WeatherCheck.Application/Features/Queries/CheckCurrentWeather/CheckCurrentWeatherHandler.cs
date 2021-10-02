@@ -18,13 +18,13 @@ namespace WeatherCheck.Application.Features.Queries.CheckCurrentWeather
     {
         private readonly IWeatherRepository _weatherRepository;
         private readonly IValidator<CheckCurrentWeatherQuery> _validator;
-        private readonly WeatherTypes weatherTypes;
+        private readonly WeatherTypes _weatherTypes;
 
         public CheckCurrentWeatherHandler(IWeatherRepository weatherRepository, IValidator<CheckCurrentWeatherQuery> validator, IOptions<WeatherTypes> weatherTypesOption)
         {
             _weatherRepository = weatherRepository;
             _validator = validator;
-            weatherTypes = weatherTypesOption.Value;
+            _weatherTypes = weatherTypesOption.Value;
         }
 
         public async Task<CheckCurrentWeatherResultDto> Handle(CheckCurrentWeatherQuery request, CancellationToken cancellationToken)
@@ -39,7 +39,7 @@ namespace WeatherCheck.Application.Features.Queries.CheckCurrentWeather
                 }
             }
             var currentWeather = await _weatherRepository.GetCurrentWeatherAsync(request.ZipCode, cancellationToken);
-            return new CheckCurrentWeatherResultDto(currentWeather.ShouldGoOutside(weatherTypes.RainingWeatherCodes), currentWeather.ShouldApplySunscreen(), currentWeather.CanFlyAKite(weatherTypes.RainingWeatherCodes));
+            return new CheckCurrentWeatherResultDto(currentWeather.ShouldGoOutside(_weatherTypes.RainingWeatherCodes), currentWeather.ShouldApplySunscreen(), currentWeather.CanFlyAKite(_weatherTypes.RainingWeatherCodes), currentWeather.WeatherDescription);
         }
     }
 }

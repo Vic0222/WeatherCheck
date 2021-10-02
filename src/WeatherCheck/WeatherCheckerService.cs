@@ -40,7 +40,12 @@ namespace WeatherCheck
                     _promtCount++;
                     StartSpinner();
                     var result = await _mediator.Send(new CheckCurrentWeatherQuery(zipCode));
-
+                    StopSpinner();
+                    var outPutSentenceBuilder = new SentenceBuilder(result);
+                    Console.WriteLine();
+                    Console.WriteLine(outPutSentenceBuilder.Build());
+                    Console.WriteLine("Prease any key to check again or \"Ctrl + C\" to exit.");
+                    Console.ReadKey();
                 }
                 catch (InvalidZipCodeException ex)
                 {

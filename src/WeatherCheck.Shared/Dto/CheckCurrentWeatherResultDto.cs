@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WeatherCheck.Shared.Dto
 {
-    public record CheckCurrentWeatherResultDto(bool ShouldGoOut, bool ShouldApplySunscreen, bool CanFlyKite)
+    public record CheckCurrentWeatherResultDto(bool ShouldGoOut, bool ShouldApplySunscreen, bool CanFlyKite, string WeatherDescription)
     {
     }
 }
