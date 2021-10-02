@@ -47,7 +47,7 @@ namespace WeatherCheck
             serviceCollection.AddTransient<IWeatherRepository, WeatherRepository>();
 
             serviceCollection.AddMediatR(typeof(CheckCurrentWeatherQuery));
-            serviceCollection.AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CheckCurrentWeatherValidator>());
+            serviceCollection.AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<CheckCurrentWeatherValidator>(lifetime : ServiceLifetime.Transient));
 
             serviceCollection.AddHttpClient<IWeatherRepository, WeatherRepository>((services, httpClient) =>
             {

@@ -40,7 +40,9 @@ namespace IntegrationTest
             };
             var weatherTypesOption = Options.Create(weatherTypes);
 
-            var sut = new CheckCurrentWeatherHandler(fakeWeatherRepository, weatherTypesOption);
+            //validator
+            var validator = new CheckCurrentWeatherValidator();
+            var sut = new CheckCurrentWeatherHandler(fakeWeatherRepository, validator, weatherTypesOption);
 
             //act
             var result = await sut.Handle(query, default);
