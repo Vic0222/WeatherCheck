@@ -13,17 +13,18 @@ namespace WeatherCheck.Domain.Models
 
         public int WeatherCode { get; private set; }
 
-        public IEnumerable<string> WeatherDescriptions { get; private set; }
+        public string WeatherDescription { get; private set; }
 
         public long WindSpeed { get; private set; }
 
         public long UvIndex { get; private set; }
 
-        private Weather(int weatherCode, long windSpeed, long uvIndex)
+        private Weather(int weatherCode, long windSpeed, long uvIndex, string weatherDescription)
         {
             WeatherCode = weatherCode;
             WindSpeed = windSpeed;
             UvIndex = uvIndex;
+            WeatherDescription = weatherDescription;
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace WeatherCheck.Domain.Models
         /// Checks if you should wear a sunscreen
         /// </summary>
         /// <returns>True if <see cref="UvIndex"/> is greater that 3.</returns>
-        public bool ShouldWearSunscreen()
+        public bool ShouldApplySunscreen()
         {
             return UvIndex > 3;
         }
@@ -63,7 +64,7 @@ namespace WeatherCheck.Domain.Models
             return !isRaining(rainingWeatherCodes) && WindSpeed > 15;
         }
 
-        public static Weather Create(int weatherCode, long windSpeed, long uvIndex)
+        public static Weather Create(int weatherCode, long windSpeed, long uvIndex, string weatherDescription)
         {
             if (weatherCode <= 0)
             {
@@ -77,7 +78,7 @@ namespace WeatherCheck.Domain.Models
             {
                 throw new DomainException($"Invalid {nameof(uvIndex)}");
             }
-            return new Weather(weatherCode, windSpeed, uvIndex);
+            return new Weather(weatherCode, windSpeed, uvIndex, weatherDescription);
         }
 
         

@@ -15,7 +15,7 @@ namespace UnitTest
         public void Should_GoOut(int weatherCode)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, 1, 1);
+            Weather sut = Weather.Create(weatherCode, 1, 1, "");
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
@@ -32,7 +32,7 @@ namespace UnitTest
         public void ShouldNot_GoOut(int weatherCode)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, 1, 1);
+            Weather sut = Weather.Create(weatherCode, 1, 1, "");
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
@@ -47,13 +47,13 @@ namespace UnitTest
         [InlineData(5)]
         [InlineData(10)]
         [InlineData(20)]
-        public void Should_WearSunscreen(int uvIndex)
+        public void Should_ApplySunscreen(int uvIndex)
         {
             //arrange
-            Weather sut = Weather.Create(311, 1, uvIndex);
+            Weather sut = Weather.Create(311, 1, uvIndex, "");
 
             //act
-            var result = sut.ShouldWearSunscreen();
+            var result = sut.ShouldApplySunscreen();
 
             //assert
             result.Should().BeTrue($"UV Index is {uvIndex}");
@@ -63,13 +63,13 @@ namespace UnitTest
         [InlineData(3)]
         [InlineData(2)]
         [InlineData(1)]
-        public void ShouldNot_WearSunscreen(int uvIndex)
+        public void ShouldNot_ApplySunscreen(int uvIndex)
         {
             //arrange
-            Weather sut = Weather.Create(311, 1, uvIndex);
+            Weather sut = Weather.Create(311, 1, uvIndex, "");
 
             //act
-            var result = sut.ShouldWearSunscreen();
+            var result = sut.ShouldApplySunscreen();
 
             //assert
             result.Should().BeFalse($"UV Index is {uvIndex}");
@@ -84,7 +84,7 @@ namespace UnitTest
         public void Should_FlyAKite(int weatherCode, int windSpeed)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, windSpeed, 0);
+            Weather sut = Weather.Create(weatherCode, windSpeed, 0, "");
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
@@ -102,7 +102,7 @@ namespace UnitTest
         public void ShouldNot_FlyAKite(int weatherCode, int windSpeed)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, windSpeed, 0);
+            Weather sut = Weather.Create(weatherCode, windSpeed, 0, "");
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
