@@ -1,17 +1,11 @@
 ﻿using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Polly;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using WeatherCheck.Application.Features.Queries.CheckCurrentWeather;
 using WeatherCheck.Application.Options;
 using WeatherCheck.Application.SeedWork.Repositories;
@@ -42,7 +36,7 @@ namespace WeatherCheck
             serviceCollection.Configure<WeatherStackConfig>(context.Configuration.GetSection("WeatherStackConfig"));
 
             //add services
-            serviceCollection.AddTransient<WeatherCheckerService>();
+            serviceCollection.AddTransient<IWeatherCheckerService, WeatherCheckerService>();
 
             serviceCollection.AddTransient<IWeatherRepository, WeatherRepository>();
 

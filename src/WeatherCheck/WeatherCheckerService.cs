@@ -1,17 +1,13 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using WeatherCheck.Application.Features.Queries.CheckCurrentWeather;
 using WeatherCheck.Application.SeedWork.Exceptions;
 
 namespace WeatherCheck
 {
-    public class WeatherCheckerService
+    public class WeatherCheckerService : IWeatherCheckerService
     {
         private const string INITIAL_MESSAGE = "Hi there! Tell me your Zip Code and I can check the weather for you.";
         private const string FOLLOW_UP_MESSAGE = "Do you want to check the weather again?";
@@ -38,7 +34,7 @@ namespace WeatherCheck
                     Console.WriteLine("Press \"Ctrl + C\" to exit.");
                     Console.Write("Zip Code: ");
                     zipCode = Console.ReadLine() ?? string.Empty;
-                    
+
                     StartSpinner();
                     var result = await _mediator.Send(new CheckCurrentWeatherQuery(zipCode));
                     StopSpinner();
@@ -73,7 +69,8 @@ namespace WeatherCheck
 
         public void StartSpinner()
         {
-            Task.Run(async () => {
+            Task.Run(async () =>
+            {
                 _isBusy = true;
                 Console.Write("Checking");
                 while (_isBusy)
@@ -82,7 +79,7 @@ namespace WeatherCheck
                     await Task.Delay(500);
                 }
             });
-            
+
         }
 
         public void StopSpinner()
