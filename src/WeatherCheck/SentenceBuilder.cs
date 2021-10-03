@@ -18,7 +18,7 @@ namespace WeatherCheck
 
         public string Build()
         {
-            StringBuilder stringBuilder = new StringBuilder($"The weather today is '{_checkCurrentWeatherResult.WeatherDescription}'. ");
+            StringBuilder stringBuilder = new StringBuilder($"The weather in {_checkCurrentWeatherResult.Address} today is '{_checkCurrentWeatherResult.WeatherDescription}'. ");
 
             stringBuilder.Append(buildShouldGoOutSentence());
             stringBuilder.Append(buildCanFlyKiteSentence());

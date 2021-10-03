@@ -8,6 +8,7 @@ using WeatherCheck.Application.Features.Queries.CheckCurrentWeather;
 using WeatherCheck.Application.Options;
 using WeatherCheck.Application.SeedWork.Repositories;
 using WeatherCheck.Domain.Models;
+using WeatherCheck.Shared.Dto;
 using Xunit;
 
 namespace IntegrationTest
@@ -24,14 +25,15 @@ namespace IntegrationTest
             string zipCode = "40170";
             var query = new CheckCurrentWeatherQuery(zipCode);
 
-            //setup fack repo
-            var weather = Weather.Create(weatherCode, windSpeed, uvIndex, "Unknown");
+            //setup fake repo
+            Location location = new("Name", "Country", "Region");
+            var weather = Weather.Create(weatherCode, windSpeed, uvIndex, "Unknown", location);
 
             var fakeWeatherRepository = A.Fake<IWeatherRepository>();
             A.CallTo(() => fakeWeatherRepository.GetCurrentWeatherAsync(zipCode, default)).Returns(Task.FromResult(weather));
 
             //setup weather codes
-            WeatherTypes weatherTypes = new WeatherTypes()
+            WeatherTypes weatherTypes = new()
             {
                 RainingWeatherCodes = new HashSet<int>()
                 {
@@ -45,7 +47,7 @@ namespace IntegrationTest
             var sut = new CheckCurrentWeatherHandler(fakeWeatherRepository, validator, weatherTypesOption);
 
             //act
-            var result = await sut.Handle(query, default);
+            CheckCurrentWeatherResultDto result = await sut.Handle(query, default);
 
             //assert
             A.CallTo(() => fakeWeatherRepository.GetCurrentWeatherAsync(zipCode, default)).MustHaveHappened();

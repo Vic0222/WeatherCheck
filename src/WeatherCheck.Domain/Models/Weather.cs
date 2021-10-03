@@ -9,22 +9,23 @@ namespace WeatherCheck.Domain.Models
 {
     public class Weather 
     {
+        public int WeatherCode { get; init; }
 
+        public string WeatherDescription { get; init; }
 
-        public int WeatherCode { get; private set; }
+        public long WindSpeed { get; init; }
 
-        public string WeatherDescription { get; private set; }
+        public long UvIndex { get; init; }
 
-        public long WindSpeed { get; private set; }
+        public Location Location { get; init; }
 
-        public long UvIndex { get; private set; }
-
-        private Weather(int weatherCode, long windSpeed, long uvIndex, string weatherDescription)
+        private Weather(int weatherCode, long windSpeed, long uvIndex, string weatherDescription, Location location)
         {
             WeatherCode = weatherCode;
             WindSpeed = windSpeed;
             UvIndex = uvIndex;
             WeatherDescription = weatherDescription;
+            Location = location;
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace WeatherCheck.Domain.Models
             return !isRaining(rainingWeatherCodes) && WindSpeed > 15;
         }
 
-        public static Weather Create(int weatherCode, long windSpeed, long uvIndex, string weatherDescription)
+        public static Weather Create(int weatherCode, long windSpeed, long uvIndex, string weatherDescription, Location location)
         {
             if (weatherCode <= 0)
             {
@@ -78,7 +79,7 @@ namespace WeatherCheck.Domain.Models
             {
                 throw new DomainException($"Invalid {nameof(uvIndex)}");
             }
-            return new Weather(weatherCode, windSpeed, uvIndex, weatherDescription);
+            return new (weatherCode, windSpeed, uvIndex, weatherDescription, location);
         }
 
         

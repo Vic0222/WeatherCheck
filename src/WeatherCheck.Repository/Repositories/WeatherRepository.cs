@@ -41,7 +41,8 @@ namespace WeatherCheck.WeatherStackClient.Repositories
                     throw new PersistenceException(weatherCheckResponse?.Error?.Code.ToString() ?? string.Empty, weatherCheckResponse?.Error?.Info ?? string.Empty);
 
                 }
-                return Weather.Create(weatherCheckResponse?.Current?.WeatherCode ?? 0, weatherCheckResponse?.Current?.WindSpeed ?? 0, weatherCheckResponse?.Current?.UvIndex ?? 0, weatherCheckResponse?.Current?.WeatherDescriptions?.FirstOrDefault() ?? string.Empty);
+                Location location = new(weatherCheckResponse?.Location?.Name ?? string.Empty, weatherCheckResponse?.Location?.Region ?? string.Empty, weatherCheckResponse?.Location?.Country ?? string.Empty);
+                return Weather.Create(weatherCheckResponse?.Current?.WeatherCode ?? 0, weatherCheckResponse?.Current?.WindSpeed ?? 0, weatherCheckResponse?.Current?.UvIndex ?? 0, weatherCheckResponse?.Current?.WeatherDescriptions?.FirstOrDefault() ?? string.Empty, location);
             }
             catch (Exception ex)
             {

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace WeatherCheck.Domain.Models
 {
-    public record Location(string Name, string Country, string Region)
+    public record Location(string Name, string Region, string Country)
     {
+        public string GetAddress()
+        {
+            return $"{Name}, {Region}, {Country}";
+        }
     }
 }

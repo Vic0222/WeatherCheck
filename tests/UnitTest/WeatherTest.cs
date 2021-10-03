@@ -15,7 +15,7 @@ namespace UnitTest
         public void Should_GoOut(int weatherCode)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, 1, 1, "");
+            Weather sut = Weather.Create(weatherCode, 1, 1, "", default);
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
@@ -32,7 +32,7 @@ namespace UnitTest
         public void ShouldNot_GoOut(int weatherCode)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, 1, 1, "");
+            Weather sut = Weather.Create(weatherCode, 1, 1, "", default);
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
@@ -50,7 +50,7 @@ namespace UnitTest
         public void Should_ApplySunscreen(int uvIndex)
         {
             //arrange
-            Weather sut = Weather.Create(311, 1, uvIndex, "");
+            Weather sut = Weather.Create(311, 1, uvIndex, "", default);
 
             //act
             var result = sut.ShouldApplySunscreen();
@@ -66,7 +66,7 @@ namespace UnitTest
         public void ShouldNot_ApplySunscreen(int uvIndex)
         {
             //arrange
-            Weather sut = Weather.Create(311, 1, uvIndex, "");
+            Weather sut = Weather.Create(311, 1, uvIndex, "", default);
 
             //act
             var result = sut.ShouldApplySunscreen();
@@ -84,7 +84,7 @@ namespace UnitTest
         public void Should_FlyAKite(int weatherCode, int windSpeed)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, windSpeed, 0, "");
+            Weather sut = Weather.Create(weatherCode, windSpeed, 0, "", default);
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act
@@ -102,7 +102,7 @@ namespace UnitTest
         public void ShouldNot_FlyAKite(int weatherCode, int windSpeed)
         {
             //arrange
-            Weather sut = Weather.Create(weatherCode, windSpeed, 0, "");
+            Weather sut = Weather.Create(weatherCode, windSpeed, 0, "", default);
             var rainingWeatherCodes = new HashSet<int>() { 176, 179, 182 };
 
             //act

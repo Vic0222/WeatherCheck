@@ -17,7 +17,7 @@ namespace WeatherCheck
         private const string FOLLOW_UP_MESSAGE = "Do you want to check the weather again?";
         private readonly IMediator _mediator;
         private readonly ILogger<WeatherCheckerService> _logger;
-        private int _promtCount = 0;
+        private bool _isInitialPrompt = true;
         private bool _isBusy = false;
 
         public WeatherCheckerService(IMediator mediator, ILogger<WeatherCheckerService> logger)
@@ -33,11 +33,12 @@ namespace WeatherCheck
                 string zipCode = string.Empty;
                 try
                 {
-                    Console.WriteLine(_promtCount == 0 ? INITIAL_MESSAGE : FOLLOW_UP_MESSAGE);
+                    Console.WriteLine(_isInitialPrompt ? INITIAL_MESSAGE : FOLLOW_UP_MESSAGE);
+                    _isInitialPrompt = false;
                     Console.WriteLine("Press \"Ctrl + C\" to exit.");
                     Console.Write("Zip Code: ");
                     zipCode = Console.ReadLine() ?? string.Empty;
-                    _promtCount++;
+                    
                     StartSpinner();
                     var result = await _mediator.Send(new CheckCurrentWeatherQuery(zipCode));
                     StopSpinner();

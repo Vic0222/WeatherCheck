@@ -38,8 +38,11 @@ namespace WeatherCheck.Application.Features.Queries.CheckCurrentWeather
                     throw new InvalidZipCodeException(request.ZipCode, zipCodeError.ErrorMessage);
                 }
             }
-            var currentWeather = await _weatherRepository.GetCurrentWeatherAsync(request.ZipCode, cancellationToken);
-            return new CheckCurrentWeatherResultDto(currentWeather.ShouldGoOutside(_weatherTypes.RainingWeatherCodes), currentWeather.ShouldApplySunscreen(), currentWeather.CanFlyAKite(_weatherTypes.RainingWeatherCodes), currentWeather.WeatherDescription);
+
+            string zipCode = request.ZipCode.PadLeft(5, '0');
+            var currentWeather = await _weatherRepository.GetCurrentWeatherAsync(zipCode, cancellationToken);
+
+            return new CheckCurrentWeatherResultDto(currentWeather.ShouldGoOutside(_weatherTypes.RainingWeatherCodes), currentWeather.ShouldApplySunscreen(), currentWeather.CanFlyAKite(_weatherTypes.RainingWeatherCodes), currentWeather.WeatherDescription, currentWeather.Location.GetAddress());
         }
     }
 }

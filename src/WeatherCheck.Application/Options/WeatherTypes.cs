@@ -9,11 +9,11 @@ namespace WeatherCheck.Application.Options
 {
     public class WeatherTypes
     {
-        public List<int> RainingWeatherCodes { get; set; }
+        public HashSet<int> RainingWeatherCodes { get; set; }
 
         public WeatherTypes()
         {
-            RainingWeatherCodes = new List<int>();
+            RainingWeatherCodes = new HashSet<int>();
         }
     }
 }
